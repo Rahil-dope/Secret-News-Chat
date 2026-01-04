@@ -29,7 +29,7 @@ service cloud.firestore {
       // Ensure required fields are present and senderUID matches authenticated user
       allow create: if isAllowedUser() &&
                       request.auth.uid == request.resource.data.senderUID &&
-                      request.resource.data.keys().hasAll(['text', 'senderUID', 'timestamp', 'hiddenFor']) &&
+                      request.resource.data.keys().hasAll(['text', 'senderUID', 'senderName', 'timestamp', 'hiddenFor']) &&
                       request.resource.data.hiddenFor is list;
       
       // Users can only update their own hiddenFor entry
@@ -42,6 +42,11 @@ service cloud.firestore {
       
       // No deletes allowed - messages can only be hidden
       allow delete: if false;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && request.auth.uid == userId;
     }
   }
 }

@@ -39,7 +39,8 @@ const ChatRoom: React.FC = () => {
 
         setSending(true);
         try {
-            await chatService.sendMessage(newMessage.trim(), currentUser.uid);
+            console.log("ChatRoom: Sending message as", currentUser.displayName);
+            await chatService.sendMessage(newMessage.trim(), currentUser.uid, currentUser.displayName);
             setNewMessage('');
         } catch (error) {
             console.error('Failed to send message:', error);

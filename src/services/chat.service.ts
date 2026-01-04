@@ -16,10 +16,11 @@ import type { Message } from '../types';
 
 export const chatService = {
     // Send a new message
-    async sendMessage(text: string, senderUID: string): Promise<void> {
+    async sendMessage(text: string, senderUID: string, senderName?: string): Promise<void> {
         await addDoc(collection(db, 'messages'), {
             text,
             senderUID,
+            senderName: senderName || 'Anonymous',
             timestamp: serverTimestamp(),
             hiddenFor: [],
         });
@@ -42,6 +43,7 @@ export const chatService = {
                         id: doc.id,
                         text: data.text,
                         senderUID: data.senderUID,
+                        senderName: data.senderName,
                         timestamp: data.timestamp,
                         hiddenFor: data.hiddenFor || [],
                     });

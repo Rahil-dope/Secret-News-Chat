@@ -48,6 +48,9 @@ const Message: React.FC<MessageProps> = ({ message, isMe, onHide }) => {
                     onTouchStart={handleTouchStart}
                     onTouchEnd={handleTouchEnd}
                 >
+                    <div className={`text-xs mb-1 font-bold ${isMe ? 'text-blue-100' : 'text-gray-600'}`}>
+                        {message.senderName || 'Anonymous'}
+                    </div>
                     <p className="text-sm break-words">{message.text}</p>
                     <p
                         className={`text-xs mt-1 ${isMe ? 'text-blue-100' : 'text-gray-500'

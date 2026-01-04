@@ -279,7 +279,7 @@ dist/
 
 ## Deployment
 
-### Option 1: Firebase Hosting
+Firebase Hosting
 
 \`\`\`bash
 # Install Firebase CLI
@@ -301,24 +301,6 @@ firebase init hosting
 npm run build
 firebase deploy --only hosting
 \`\`\`
-
-### Option 2: Vercel
-
-\`\`\`bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Deploy
-npm run build
-vercel --prod
-\`\`\`
-
-### Option 3: Netlify
-
-1. Connect your Git repository
-2. Build command: `npm run build`
-3. Publish directory: `dist`
-4. Add environment variables in Netlify dashboard
 
 ### Environment Variables in Production
 
