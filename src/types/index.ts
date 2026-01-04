@@ -1,3 +1,5 @@
+import type { Timestamp } from 'firebase/firestore';
+
 export interface User {
     uid: string;
     email: string | null;
@@ -7,7 +9,7 @@ export interface Message {
     id: string;
     text: string;
     senderUID: string;
-    timestamp: any; // Firebase Timestamp
+    timestamp: Timestamp | null; // Firebase Timestamp
     hiddenFor: string[];
 }
 

@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import newsData from '../../data/news.json';
 import type { NewsArticle } from '../../types';
 import SearchBar from './SearchBar';
-import { useAuth } from '../../contexts/AuthContext';
-import { formatNewsTimestamp } from '../../utils/date';
+import NewsCard from './NewsCard';
+import { useAuth } from '../../contexts/useAuth';
+
 
 const NewsFeed: React.FC = () => {
     const [articles] = useState<NewsArticle[]>(newsData);
@@ -95,29 +96,13 @@ const NewsFeed: React.FC = () => {
                         <p className="text-gray-500">Try searching with different keywords</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredArticles.map((article) => (
-                            <article
+                            <NewsCard
                                 key={article.id}
-                                className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 cursor-pointer"
-                            >
-                                <div className="flex items-center justify-between mb-3">
-                                    <span
-                                        className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(
-                                            article.category
-                                        )}`}
-                                    >
-                                        {article.category}
-                                    </span>
-                                    <span className="text-sm text-gray-500">
-                                        {formatNewsTimestamp(article.timestamp)}
-                                    </span>
-                                </div>
-                                <h2 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-                                    {article.title}
-                                </h2>
-                                <p className="text-gray-600 text-sm line-clamp-3">{article.description}</p>
-                            </article>
+                                article={article}
+                                getCategoryColor={getCategoryColor}
+                            />
                         ))}
                     </div>
                 )}

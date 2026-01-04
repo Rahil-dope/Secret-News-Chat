@@ -16,13 +16,18 @@ export const registerSW = () => {
 };
 
 // Handle PWA install prompt
-let deferredPrompt: any;
+type BeforeInstallPromptEvent = Event & {
+    prompt: () => Promise<void>;
+    userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+};
 
-window.addEventListener('beforeinstallprompt', (e) => {
+let deferredPrompt: BeforeInstallPromptEvent | null = null;
+
+window.addEventListener('beforeinstallprompt', (e: Event) => {
     // Prevent the mini-infobar from appearing on mobile
-    e.preventDefault();
+    (e as BeforeInstallPromptEvent).preventDefault?.();
     // Stash the event so it can be triggered later
-    deferredPrompt = e;
+    deferredPrompt = e as BeforeInstallPromptEvent;
 });
 
 export const promptInstall = async () => {

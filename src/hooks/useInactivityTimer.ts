@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
 interface UseInactivityTimerOptions {
     timeout: number; // in milliseconds
@@ -8,7 +8,7 @@ interface UseInactivityTimerOptions {
 export const useInactivityTimer = ({ timeout, onInactive }: UseInactivityTimerOptions) => {
     const timeoutRef = useRef<number | null>(null);
 
-    const resetTimer = () => {
+    const resetTimer = useCallback(() => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
@@ -16,7 +16,7 @@ export const useInactivityTimer = ({ timeout, onInactive }: UseInactivityTimerOp
         timeoutRef.current = window.setTimeout(() => {
             onInactive();
         }, timeout);
-    };
+    }, [timeout, onInactive]);
 
     useEffect(() => {
         // Events to detect user activity
@@ -39,7 +39,7 @@ export const useInactivityTimer = ({ timeout, onInactive }: UseInactivityTimerOp
                 document.removeEventListener(event, resetTimer);
             });
         };
-    }, [timeout, onInactive]);
+    }, [resetTimer]);
 
     return { resetTimer };
 };

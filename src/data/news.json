@@ -4,139 +4,159 @@
         "title": "Global Markets Rally on Economic Data",
         "description": "Stock markets worldwide showed strong gains following positive economic indicators.",
         "category": "Business",
-        "timestamp": "2026-01-04T08:00:00Z"
+        "timestamp": "2026-01-04T08:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/1/800/600"
     },
     {
         "id": "2",
         "title": "New Technology Breakthrough in Renewable Energy",
         "description": "Scientists announce major advancement in solar panel efficiency.",
         "category": "Technology",
-        "timestamp": "2026-01-04T07:30:00Z"
+        "timestamp": "2026-01-04T07:30:00Z",
+        "imageUrl": "https://picsum.photos/seed/2/800/600"
     },
     {
         "id": "3",
         "title": "International Summit Addresses Climate Change",
         "description": "World leaders gather to discuss environmental policies and commitments.",
         "category": "World",
-        "timestamp": "2026-01-04T06:00:00Z"
+        "timestamp": "2026-01-04T06:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/3/800/600"
     },
     {
         "id": "4",
         "title": "Sports: Championship Finals Draw Record Viewership",
         "description": "Historic match sees unprecedented global audience numbers.",
         "category": "Sports",
-        "timestamp": "2026-01-03T20:00:00Z"
+        "timestamp": "2026-01-03T20:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/4/800/600"
     },
     {
         "id": "5",
         "title": "AI Researchers Publish Groundbreaking Study",
         "description": "New machine learning algorithms show promise in medical diagnostics.",
         "category": "Technology",
-        "timestamp": "2026-01-03T15:00:00Z"
+        "timestamp": "2026-01-03T15:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/5/800/600"
     },
     {
         "id": "6",
         "title": "Central Banks Announce Policy Changes",
         "description": "Major economies adjust interest rates in coordinated move.",
         "category": "Business",
-        "timestamp": "2026-01-03T12:00:00Z"
+        "timestamp": "2026-01-03T12:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/6/800/600"
     },
     {
         "id": "7",
         "title": "Space Agency Reveals New Mission Plans",
         "description": "Ambitious program aims for deep space exploration by 2030.",
         "category": "Technology",
-        "timestamp": "2026-01-03T10:00:00Z"
+        "timestamp": "2026-01-03T10:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/7/800/600"
     },
     {
         "id": "8",
         "title": "Trade Negotiations Make Progress",
         "description": "Multiple nations reach preliminary agreements on key issues.",
         "category": "World",
-        "timestamp": "2026-01-02T18:00:00Z"
+        "timestamp": "2026-01-02T18:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/8/800/600"
     },
     {
         "id": "9",
         "title": "Tech Giant Announces Major Product Launch",
         "description": "New consumer devices feature innovative design and capabilities.",
         "category": "Technology",
-        "timestamp": "2026-01-02T14:00:00Z"
+        "timestamp": "2026-01-02T14:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/9/800/600"
     },
     {
         "id": "10",
         "title": "Healthcare Initiative Expands Nationwide",
         "description": "Government program aims to improve medical access in rural areas.",
         "category": "Health",
-        "timestamp": "2026-01-02T09:00:00Z"
+        "timestamp": "2026-01-02T09:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/10/800/600"
     },
     {
         "id": "11",
         "title": "Olympic Preparations Enter Final Stage",
         "description": "Host city completes major infrastructure projects ahead of games.",
         "category": "Sports",
-        "timestamp": "2026-01-01T16:00:00Z"
+        "timestamp": "2026-01-01T16:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/11/800/600"
     },
     {
         "id": "12",
         "title": "Cybersecurity Experts Issue New Guidelines",
         "description": "Updated recommendations help organizations protect against threats.",
         "category": "Technology",
-        "timestamp": "2026-01-01T11:00:00Z"
+        "timestamp": "2026-01-01T11:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/12/800/600"
     },
     {
         "id": "13",
         "title": "Economic Growth Exceeds Forecasts",
         "description": "Latest quarterly data shows stronger than expected expansion.",
         "category": "Business",
-        "timestamp": "2025-12-31T13:00:00Z"
+        "timestamp": "2025-12-31T13:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/13/800/600"
     },
     {
         "id": "14",
         "title": "Environmental Initiative Gains Momentum",
         "description": "Conservation program sees widespread adoption across regions.",
         "category": "Environment",
-        "timestamp": "2025-12-31T10:00:00Z"
+        "timestamp": "2025-12-31T10:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/14/800/600"
     },
     {
         "id": "15",
         "title": "Research Team Makes Medical Discovery",
         "description": "New treatment approach shows promising results in clinical trials.",
         "category": "Health",
-        "timestamp": "2025-12-30T17:00:00Z"
+        "timestamp": "2025-12-30T17:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/15/800/600"
     },
     {
         "id": "16",
         "title": "Infrastructure Investment Plans Announced",
         "description": "Major funding allocated for transportation and utilities upgrades.",
         "category": "Business",
-        "timestamp": "2025-12-30T12:00:00Z"
+        "timestamp": "2025-12-30T12:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/16/800/600"
     },
     {
         "id": "17",
         "title": "Cultural Festival Attracts International Attention",
         "description": "Annual event celebrates diversity with record participation.",
         "category": "Culture",
-        "timestamp": "2025-12-29T15:00:00Z"
+        "timestamp": "2025-12-29T15:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/17/800/600"
     },
     {
         "id": "18",
         "title": "Aviation Industry Adopts Sustainability Goals",
         "description": "Airlines commit to reducing carbon emissions through new initiatives.",
         "category": "Business",
-        "timestamp": "2025-12-29T09:00:00Z"
+        "timestamp": "2025-12-29T09:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/18/800/600"
     },
     {
         "id": "19",
         "title": "Education Technology Transforms Classrooms",
         "description": "Schools implement innovative digital learning platforms.",
         "category": "Education",
-        "timestamp": "2025-12-28T14:00:00Z"
+        "timestamp": "2025-12-28T14:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/19/800/600"
     },
     {
         "id": "20",
         "title": "Weather Patterns Show Seasonal Shifts",
         "description": "Meteorologists track changing climate conditions globally.",
         "category": "Environment",
-        "timestamp": "2025-12-28T08:00:00Z"
+        "timestamp": "2025-12-28T08:00:00Z",
+        "imageUrl": "https://picsum.photos/seed/20/800/600"
     }
 ]

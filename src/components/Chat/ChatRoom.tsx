@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/useAuth';
 import { chatService } from '../../services/chat.service';
 import type { Message as MessageType } from '../../types';
 import Message from './Message';

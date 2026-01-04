@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/useAuth';
 
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -20,8 +20,12 @@ const LoginForm: React.FC = () => {
             } else {
                 await signup(email, password);
             }
-        } catch (err: any) {
-            setError(err.message || 'Authentication failed');
+        } catch (err) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError(String(err) || 'Authentication failed');
+            }
         } finally {
             setLoading(false);
         }

@@ -1,7 +1,13 @@
-export const formatTimestamp = (timestamp: any): string => {
+import type { Timestamp } from 'firebase/firestore';
+
+function isTimestampLike(value: unknown): value is { toDate: () => Date } {
+    return !!value && typeof (value as { toDate?: unknown }).toDate === 'function';
+}
+
+export const formatTimestamp = (timestamp: Timestamp | Date | string | number | null | undefined): string => {
     if (!timestamp) return '';
 
-    const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp);
+    const date = isTimestampLike(timestamp) ? timestamp.toDate() : new Date(timestamp as Date | string | number);
     const now = new Date();
     const diff = now.getTime() - date.getTime();
 
