@@ -11,6 +11,7 @@ A Progressive Web App (PWA) that appears as a normal news reader but contains a 
 - ✅ **Disguised Interface**: Appears as "News Today" - a legitimate news reading app
 - 🔐 **Secret Unlock**: Hidden chat accessible only via keyword search (no visible buttons or hints)
 - 💬 **Real-time Chat**: Firebase Firestore-powered instant messaging
+- 🦁 **Anonymous Identities**: Users are auto-assigned fun animal names (e.g., "Happy Hippo")
 - 🗑️ **Hide for Me**: Messages can be hidden individually (not deleted for everyone)
 - 🔒 **Auto-Lock Security**:
   - Returns to news feed when app goes to background
