@@ -1,0 +1,31 @@
+{
+    "collections": {
+        "config": {
+            "allowedUsers": {
+                "uids": [
+                    "user-uid-1-replace-with-actual-uid",
+                    "user-uid-2-replace-with-actual-uid"
+                ]
+            }
+        }
+    },
+    "instructions": {
+        "setup": [
+            "1. Create user accounts via the app's signup form",
+            "2. Find the user UIDs in Firebase Console > Authentication > Users",
+            "3. Go to Firestore Database > Data tab",
+            "4. Create collection 'config' with document 'allowedUsers'",
+            "5. Add field 'uids' as an array",
+            "6. Add the actual user UIDs to the array",
+            "7. Save the document"
+        ],
+        "note": "If this document doesn't exist, all authenticated users can access the chat by default (development mode)"
+    },
+    "example_message_structure": {
+        "id": "auto-generated-by-firestore",
+        "text": "Hello, this is a test message",
+        "senderUID": "user-uid-from-auth",
+        "timestamp": "firebase-server-timestamp",
+        "hiddenFor": []
+    }
+}
