@@ -1,449 +1,428 @@
-# Developer Setup Guide
+# 🛠️ Developer Setup Guide
 
-Complete step-by-step instructions for setting up and running the Secret News Chat PWA.
+**Secret News Chat – Progressive Web App**
 
-## Table of Contents
-
-1. [Prerequisites](#prerequisites)
-2. [Project Installation](#project-installation)
-3. [Firebase Project Setup](#firebase-project-setup)
-4. [Firestore Configuration](#firestore-configuration)
-5. [Environment Variables](#environment-variables)
-6. [Running the Application](#running-the-application)
-7. [Building for Production](#building-for-production)
-8. [Deployment](#deployment)
-9. [Troubleshooting](#troubleshooting)
+This document provides **end-to-end instructions** to configure, run, and deploy the **Secret News Chat** PWA in a local or production environment.
 
 ---
 
-## Prerequisites
+## 📑 Table of Contents
+
+1. [System Requirements](#system-requirements)
+2. [Local Installation](#local-installation)
+3. [Firebase Project Setup](#firebase-project-setup)
+4. [Firestore Security Configuration](#firestore-security-configuration)
+5. [Environment Configuration](#environment-configuration)
+6. [Running the Application](#running-the-application)
+7. [Production Build](#production-build)
+8. [Deployment](#deployment)
+9. [Troubleshooting](#troubleshooting)
+10. [Development Notes](#development-notes)
+11. [References](#references)
+
+---
+
+## ✅ System Requirements
 
 ### Required Software
 
-- **Node.js** 18.x or higher ([Download](https://nodejs.org/))
-- **npm** 9.x or higher (comes with Node.js)
-- **Git** (optional, for version control)
+* **Node.js** ≥ 18.x
+* **npm** ≥ 9.x
+* **Git** (optional but recommended)
+
+Verify installation:
+
+```bash
+node --version
+npm --version
+```
+
+---
 
 ### Required Accounts
 
-- **Firebase Account** (free tier is sufficient)
-  - Sign up at [firebase.google.com](https://firebase.google.com/)
+* **Firebase Account**
+  Sign up: [https://firebase.google.com/](https://firebase.google.com/)
 
-### Verify Installation
-
-\`\`\`bash
-node --version  # Should show v18.x or higher
-npm --version   # Should show 9.x or higher
-\`\`\`
+Free tier is sufficient for development and testing.
 
 ---
 
-## Project Installation
+## 📦 Local Installation
 
 ### 1. Navigate to Project Directory
 
-\`\`\`bash
-cd "d:/Coding/WORKKK/secure talk/secret-news-chat"
-\`\`\`
+```bash
+cd secret-news-chat
+```
+
+> Avoid spaces or special characters in the project path.
+
+---
 
 ### 2. Install Dependencies
 
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+```
 
-This will install:
-- React and React Router
-- Firebase SDK
-- Tailwind CSS
-- Vite and plugins
-- TypeScript and types
+Installs:
 
-**Expected output**: ~610 packages installed
+* React + Router
+* Firebase SDK
+* Tailwind CSS
+* Vite + PWA plugins
+* TypeScript tooling
+
+Expected install size: ~600 packages.
 
 ---
 
-## Firebase Project Setup
+## 🔥 Firebase Project Setup
 
-### Step 1: Create Firebase Project
+### Step 1: Create a Firebase Project
 
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Click **"Add Project"** or **"Create a project"**
-3. Enter project name: `secret-news-chat` (or your choice)
-4. Disable Google Analytics (optional for this project)
-5. Click **"Create Project"**
+1. Open **Firebase Console**
+2. Click **Create Project**
+3. Name: `secret-news-chat` (or custom)
+4. Disable Google Analytics (recommended)
+5. Create project
 
-### Step 2: Register Web App
+---
 
-1. In your Firebase project, click the **Web icon** (`</>`)
-2. Register app name: `Secret News Chat`
-3. **Do NOT** check "Also set up Firebase Hosting" (optional)
-4. Click **"Register app"**
-5. **Copy the Firebase configuration object** (you'll need this later)
+### Step 2: Register Web Application
 
-Example config:
-\`\`\`javascript
+1. Inside Firebase project → click **Web (`</>`)**
+2. App name: `Secret News Chat`
+3. **Do not enable Firebase Hosting yet**
+4. Register app
+5. Copy the generated Firebase config
+
+Example:
+
+```js
 const firebaseConfig = {
-  apiKey: "AIzaSyB...",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
+  apiKey: "AIzaSy...",
+  authDomain: "project.firebaseapp.com",
+  projectId: "project-id",
+  storageBucket: "project.appspot.com",
   messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef123456"
+  appId: "1:123456:web:abcdef"
 };
-\`\`\`
+```
+
+---
 
 ### Step 3: Enable Authentication
 
-1. In Firebase Console, go to **Build > Authentication**
-2. Click **"Get Started"**
-3. Click **"Email/Password"** under Sign-in method
-4. **Enable** the first option (Email/Password)
-5. Leave "Email link (passwordless sign-in)" disabled
-6. Click **"Save"**
-
-### Step 4: Create Firestore Database
-
-1. Go to **Build > Firestore Database**
-2. Click **"Create database"**
-3. Choose **"Start in production mode"** (we'll add custom rules)
-4. Select your preferred location (closest to your users)
-5. Click **"Enable"**
+1. Firebase Console → **Build → Authentication**
+2. Click **Get Started**
+3. Enable **Email / Password**
+4. Disable passwordless login
+5. Save
 
 ---
 
-## Firestore Configuration
+### Step 4: Create Firestore Database
 
-### Step 1: Deploy Security Rules
+1. Firebase Console → **Build → Firestore**
+2. Create database
+3. Select **Production mode**
+4. Choose closest region
+5. Enable
 
-1. In Firestore Console, go to **Rules** tab
-2. Replace the default rules with the contents of `firestore.rules`:
+---
 
-\`\`\`javascript
+## 🔐 Firestore Security Configuration
+
+### Step 1: Deploy Firestore Rules
+
+Go to **Firestore → Rules** and replace with:
+
+```js
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
     function isAuthenticated() {
       return request.auth != null;
     }
-    
+
     function isAllowedUser() {
-      return isAuthenticated() && 
-             exists(/databases/$(database)/documents/config/allowedUsers) &&
-             request.auth.uid in get(/databases/$(database)/documents/config/allowedUsers).data.uids;
+      return isAuthenticated() &&
+        exists(/databases/$(database)/documents/config/allowedUsers) &&
+        request.auth.uid in
+        get(/databases/$(database)/documents/config/allowedUsers).data.uids;
     }
-    
-    match /config/{document} {
+
+    match /config/{doc} {
       allow read: if isAuthenticated();
       allow write: if false;
     }
-    
+
     match /messages/{messageId} {
       allow read: if isAllowedUser();
+
       allow create: if isAllowedUser() &&
-                      request.auth.uid == request.resource.data.senderUID &&
-                      request.resource.data.keys().hasAll(['text', 'senderUID', 'timestamp', 'hiddenFor']) &&
-                      request.resource.data.hiddenFor is list;
+        request.auth.uid == request.resource.data.senderUID &&
+        request.resource.data.keys()
+          .hasAll(['text', 'senderUID', 'timestamp', 'hiddenFor']) &&
+        request.resource.data.hiddenFor is list;
+
       allow update: if isAllowedUser() &&
-                      request.auth.uid in request.resource.data.hiddenFor &&
-                      !(request.auth.uid in resource.data.hiddenFor) &&
-                      request.resource.data.diff(resource.data).affectedKeys().hasOnly(['hiddenFor']);
+        request.auth.uid in request.resource.data.hiddenFor &&
+        !(request.auth.uid in resource.data.hiddenFor) &&
+        request.resource.data.diff(resource.data)
+          .affectedKeys().hasOnly(['hiddenFor']);
+
       allow delete: if false;
     }
   }
 }
-\`\`\`
+```
 
-3. Click **"Publish"**
-
-### Step 2: Create Allowed Users List (Optional)
-
-To restrict chat access to specific users:
-
-1. Go to **Firestore Database > Data** tab
-2. Click **"Start collection"**
-3. Collection ID: `config`
-4. Document ID: `allowedUsers`
-5. Add field:
-   - **Field**: `uids`
-   - **Type**: `array`
-   - **Value**: (leave empty for now)
-6. Click **"Save"**
-
-**Adding allowed UIDs later**:
-1. Create user accounts via the app
-2. Find their UIDs in **Authentication > Users** tab
-3. Add UIDs to the `uids` array in Firestore
-
-> **Note**: If the `config/allowedUsers` document doesn't exist, the app allows all authenticated users by default (for development).
+Click **Publish**.
 
 ---
 
-## Environment Variables
+### Step 2: (Optional) Restrict Chat Access
 
-### Step 1: Create Environment File
+Create allowlist document:
 
-\`\`\`bash
+1. Firestore → Data
+2. Collection: `config`
+3. Document: `allowedUsers`
+4. Field:
+
+   * `uids` → Array
+
+Add user UIDs manually from **Authentication → Users**.
+
+> If this document does not exist, all authenticated users are allowed (development default).
+
+---
+
+## 🌱 Environment Configuration
+
+### Step 1: Create Local Environment File
+
+```bash
 cp .env.example .env.local
-\`\`\`
+```
+
+---
 
 ### Step 2: Configure Firebase Credentials
 
-Open `.env.local` and replace with your Firebase config values:
+Edit `.env.local`:
 
-\`\`\`env
-VITE_FIREBASE_API_KEY=AIzaSyB...
-VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=your-project-id
-VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+```env
+VITE_FIREBASE_API_KEY=AIzaSy...
+VITE_FIREBASE_AUTH_DOMAIN=project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=project-id
+VITE_FIREBASE_STORAGE_BUCKET=project.appspot.com
 VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
-VITE_FIREBASE_APP_ID=1:123456789:web:abcdef123456
+VITE_FIREBASE_APP_ID=1:123456:web:abcdef
 
 # Secret keyword to unlock chat
 VITE_SECRET_KEYWORD=quantum2026
-\`\`\`
-
-### Step 3: Customize Secret Keyword (Optional)
-
-Change `VITE_SECRET_KEYWORD` to your desired keyword:
-- Case-sensitive
-- No spaces recommended
-- Should not be easily guessable
+```
 
 ---
 
-## Running the Application
+### Step 3: Secret Keyword Rules
+
+* Case-sensitive
+* No spaces recommended
+* Should not resemble normal search terms
+
+Restart dev server after changes.
+
+---
+
+## ▶️ Running the Application
 
 ### Development Mode
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
-- Opens at: `http://localhost:5173`
-- Hot reload enabled
-- Source maps for debugging
-
-### First Run
-
-1. **Sign Up**: Create a new account with email/password
-2. **Find Your UID**:
-   - Go to Firebase Console > Authentication > Users
-   - Copy your user UID
-3. **Add to Allowed List** (if configured):
-   - Firestore > `config/allowedUsers`
-   - Add your UID to the `uids` array
-4. **Test Chat**:
-   - Type the secret keyword in search bar
-   - Should navigate to chat screen
+* URL: `http://localhost:5173`
+* Hot reload enabled
+* Debug-friendly source maps
 
 ---
 
-## Building for Production
+### First-Time Validation Checklist
 
-### Step 1: Type Check
+1. Sign up via UI
+2. Copy UID from Firebase Authentication
+3. Add UID to `config/allowedUsers` (if enabled)
+4. Type secret keyword in search bar
+5. Verify chat unlocks
 
-\`\`\`bash
+---
+
+## 🏗️ Production Build
+
+### Build
+
+```bash
 npm run build
-\`\`\`
+```
 
-This will:
-- Run TypeScript compiler (`tsc -b`)
-- Build with Vite
-- Generate PWA service worker
-- Output to `dist/` folder
+Actions performed:
 
-### Step 2: Preview Build
-
-\`\`\`bash
-npm run preview
-\`\`\`
-
-- Serves production build locally
-- Test PWA features
-- Verify offline functionality
-
-### Step 3: Check Build Output
-
-\`\`\`
-dist/
-├── assets/           # JS and CSS bundles
-├── icons/           # PWA icons
-├── manifest.json    # PWA manifest
-├── sw.js           # Service worker
-└── index.html      # Entry point
-\`\`\`
+* TypeScript type checking
+* Optimized Vite build
+* PWA service worker generation
 
 ---
 
-## Deployment
+### Preview Build
 
-Firebase Hosting
+```bash
+npm run preview
+```
 
-\`\`\`bash
-# Install Firebase CLI
+Use this to:
+
+* Test PWA installation
+* Verify offline caching
+* Validate production behavior
+
+---
+
+### Build Output
+
+```
+dist/
+├── assets/
+├── icons/
+├── manifest.json
+├── sw.js
+└── index.html
+```
+
+---
+
+## 🚀 Deployment (Firebase Hosting)
+
+```bash
 npm install -g firebase-tools
-
-# Login
 firebase login
-
-# Initialize hosting
 firebase init hosting
+```
 
-# Select options:
-# - Use existing project
-# - Public directory: dist
-# - Single-page app: Yes
-# - Automatic builds: No
+**Recommended options:**
 
-# Deploy
+* Existing project
+* Public directory: `dist`
+* Single-page app: **Yes**
+* Auto builds: **No**
+
+Deploy:
+
+```bash
 npm run build
 firebase deploy --only hosting
-\`\`\`
-
-### Environment Variables in Production
-
-Remember to set all `VITE_*` environment variables in your hosting platform's environment config.
+```
 
 ---
 
-## Troubleshooting
+### Production Environment Variables
 
-### Issue: "Firebase not defined"
+Ensure all `VITE_*` variables are configured in the hosting environment.
 
-**Cause**: Environment variables not loaded
+---
 
-**Solution**:
-1. Ensure `.env.local` exists with correct values
-2. Restart dev server after changing env variables
-3. Check that variable names start with `VITE_`
+## 🧯 Troubleshooting
 
-### Issue: "Permission denied" in Firestore
+### Firebase Not Initialized
 
-**Cause**: Security rules blocking access or user not in allowed list
+**Cause**: Missing or invalid env variables
+**Fix**:
 
-**Solution**:
-1. Verify security rules are deployed
-2. Check user UID is in `config/allowedUsers.uids` array
-3. Ensure user is authenticated (check Firebase Auth console)
+* Verify `.env.local`
+* Restart dev server
+* Ensure `VITE_` prefix
 
-### Issue: Chat doesn't unlock with keyword
+---
 
-**Cause**: Keyword mismatch or typo
+### Firestore Permission Denied
 
-**Solution**:
-1. Check `.env.local` for exact keyword (case-sensitive)
-2. Restart dev server after changing keyword
-3. Clear browser cache
-4. Type keyword exactly as specified
+**Cause**: UID not allowed or rules misconfigured
+**Fix**:
 
-### Issue: "Module not found" errors
+* Check Firestore rules
+* Confirm UID in `allowedUsers`
+* Ensure user is authenticated
 
-**Cause**: Dependencies not installed
+---
 
-**Solution**:
-\`\`\`bash
+### Chat Not Unlocking
+
+**Cause**: Keyword mismatch
+**Fix**:
+
+* Check case sensitivity
+* Restart server
+* Clear cache
+
+---
+
+### Dependency Errors
+
+```bash
 rm -rf node_modules package-lock.json
 npm install
-\`\`\`
-
-### Issue: PWA not installing
-
-**Cause**: HTTPS required for PWA (except localhost)
-
-**Solution**:
-- Localhost works without HTTPS
-- Production requires valid SSL certificate
-- Use Firebase Hosting, Vercel, or Netlify (auto-SSL)
-
-### Issue: Service Worker not updating
-
-**Cause**: Browser cache
-
-**Solution**:
-1. Clear browser cache
-2. Unregister service worker in DevTools
-3. Hard refresh (Ctrl+Shift+R)
-
-### Issue: Build fails with TypeScript errors
-
-**Cause**: Type checking errors
-
-**Solution**:
-\`\`\`bash
-# Check errors
-npm run build
-
-# Fix type errors in reported files
-# Or temporarily bypass (not recommended):
-npx vite build --mode production
-\`\`\`
+```
 
 ---
 
-## Development Tips
+### PWA Not Installing
 
-### Hot Reload Issues
+**Cause**: HTTPS required
+**Fix**:
 
-If changes don't reflect:
-1. Save the file
-2. Check terminal for build errors
-3. Hard refresh browser
-
-### Debugging Firestore Rules
-
-1. Go to Firestore > Rules playground
-2. Simulate operations with test user UIDs
-3. Check which rules are failing
-
-### Testing Auto-Lock Features
-
-- **Inactivity**: Wait 60 seconds in chat
-- **Background**: Switch browser tabs
-- **Back button**: Use browser back
-- Check console for navigation events
-
-### Viewing Service Worker
-
-1. Open DevTools
-2. Go to Application > Service Workers
-3. Check registration status
-4. Use "Update on reload" for development
+* Use localhost for dev
+* Use Firebase / Vercel / Netlify for prod
 
 ---
 
-## Additional Resources
+## 🧠 Development Notes
 
-- [Firebase Documentation](https://firebase.google.com/docs)
-- [Vite Documentation](https://vitejs.dev/)
-- [React Router Documentation](https://reactrouter.com/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/)
-- [PWA Documentation](https://web.dev/progressive-web-apps/)
+* Use Firestore Rules Playground for rule debugging
+* Monitor Service Worker in DevTools → Application
+* Test auto-lock by:
 
----
-
-## Getting Help
-
-### Check These First
-
-1. Browser console for errors
-2. Firebase Console > Authentication (user authentication)
-3. Firebase Console > Firestore (data and rules)
-4. Network tab for API errors
-5. Service Worker status in DevTools
-
-### Common Error Messages
-
-| Error | Cause | Solution |
-|-------|-------|----------|
-| `auth/user-not-found` | Email doesn't exist | Sign up first |
-| `auth/wrong-password` | Incorrect password | Check password |
-| `permission-denied` | Firestore rules | Add UID to allowed list |
-| `network-request-failed` | Firebase config wrong | Check `.env.local` |
+  * Tab switching
+  * Backgrounding
+  * Idle timeout
+  * Back navigation
 
 ---
 
-**Setup complete! 🎉**
+## 📚 References
 
-Run `npm run dev` and start testing the app.
+* Firebase Docs: [https://firebase.google.com/docs](https://firebase.google.com/docs)
+* Vite: [https://vitejs.dev/](https://vitejs.dev/)
+* React Router: [https://reactrouter.com/](https://reactrouter.com/)
+* Tailwind CSS: [https://tailwindcss.com/](https://tailwindcss.com/)
+* PWA Guide: [https://web.dev/progressive-web-apps/](https://web.dev/progressive-web-apps/)
+
+---
+
+## ✅ Setup Complete
+
+Run:
+
+```bash
+npm run dev
+```
+
+You’re ready to test and iterate.
+
+---
