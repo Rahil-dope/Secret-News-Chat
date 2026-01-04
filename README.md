@@ -1,13 +1,15 @@
-# Secret News Chat
+# 📰 Secret News Chat
 
-A Progressive Web App (PWA) that appears as a normal news reader but contains a hidden private chat room accessible only via a secret keyword search.
+A stealth **Progressive Web App (PWA)** that functions as a legitimate news reader while discreetly embedding a private, keyword-gated chat system.
 
-## 🎯 Overview
+---
 
-**Secret News Chat** is a stealth communication app disguised as a news aggregator. The app always opens to a functional news feed, and only users who know the secret keyword can unlock the hidden chat feature by typing it into the search bar.
+## 📌 Overview
 
-### Key Features
+**Secret News Chat** is a disguise-first communication application.
+On the surface, it behaves like a standard news aggregation app. Under the hood, it contains a private real-time chat that can only be accessed by entering a predefined secret keyword into the search bar.
 
+<<<<<<< HEAD
 - ✅ **Disguised Interface**: Appears as "News Today" - a legitimate news reading app
 - 🔐 **Secret Unlock**: Hidden chat accessible only via keyword search (no visible buttons or hints)
 - 💬 **Real-time Chat**: Firebase Firestore-powered instant messaging
@@ -20,233 +22,292 @@ A Progressive Web App (PWA) that appears as a normal news reader but contains a 
 - 📱 **Progressive Web App**: Install to home screen, works offline
 - 🔥 **Firebase Backend**: Authentication + Firestore real-time database
 - 🎨 **Clean UI**: Mobile-first, responsive design
+=======
+There are **no visible indicators**, buttons, or navigation paths revealing the chat feature—access relies entirely on prior knowledge.
+>>>>>>> dd9d16d390d465c8f91df60343c8196ce9c2c6a5
 
-## 🛠️ Tech Stack
+This project is designed as a **technical demonstration of UI deception, state control, and access gating**, not as a secure messaging platform.
+
+---
+
+## ✨ Core Features
+
+### Interface & UX
+
+* 📰 **Fully Disguised UI** — Appears as a normal news reader (“News Today”)
+* 🔍 **Keyword-Based Unlock** — Chat unlocks only via secret search input
+* 🎨 **Mobile-First Design** — Clean, responsive, distraction-free UI
+
+### Chat & State Control
+
+* 💬 **Real-Time Messaging** — Firestore-powered live chat
+* 🗑️ **Hide-for-Me Messages** — Local-only message hiding (non-destructive)
+* 🔄 **Instant State Reset** — Chat auto-closes under multiple conditions
+
+### Security-by-Behavior
+
+* 🔒 **Auto-Lock System**
+
+  * App backgrounded
+  * Browser tab loses focus
+  * 60 seconds of inactivity
+  * Back navigation from chat
+* 🚫 **No Persistent Chat Exposure** — Always returns to news feed
+
+### Platform
+
+* 📱 **Progressive Web App**
+
+  * Installable
+  * Offline-capable (cached content)
+  * Service Worker + Manifest support
+
+---
+
+## 🧱 Technology Stack
 
 ### Frontend
-- **React 18** with TypeScript
-- **Vite** - Fast build tool
-- **Tailwind CSS** - Utility-first styling
-- **React Router** - Client-side routing
+
+* **React 18** + **TypeScript**
+* **Vite** (high-performance bundler)
+* **Tailwind CSS** (utility-first styling)
+* **React Router** (client-side routing)
 
 ### Backend
-- **Firebase Authentication** (Email/Password)
-- **Cloud Firestore** (Real-time database with offline support)
+
+* **Firebase Authentication** (Email / Password)
+* **Cloud Firestore**
+
+  * Real-time updates
+  * Offline persistence
 
 ### PWA
-- **Vite PWA Plugin** with Workbox
-- Service Worker for offline caching
-- Web App Manifest
 
-## 📋 Prerequisites
+* **Vite PWA Plugin (Workbox)**
+* Service Worker caching
+* Web App Manifest
 
-- Node.js 18+ and npm
-- Firebase account (free tier works)
-- Modern web browser
+---
 
-## 🚀 Quick Start
+## ⚙️ Prerequisites
 
-### 1. Clone and Install
+* Node.js **18+**
+* npm
+* Firebase account (free tier sufficient)
+* Modern Chromium-based browser (recommended)
 
-\`\`\`bash
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Installation
+
+```bash
 cd secret-news-chat
 npm install
-\`\`\`
+```
 
-### 2. Firebase Setup
+### 2️⃣ Firebase Configuration
 
-Follow the detailed instructions in [`SETUP.md`](./SETUP.md) to:
-- Create a Firebase project
-- Enable Email/Password authentication
-- Create a Firestore database
-- Configure environment variables
+Follow the detailed setup guide in [`SETUP.md`](./SETUP.md) to:
 
-### 3. Configure Environment
+* Create a Firebase project
+* Enable Email/Password authentication
+* Initialize Firestore
+* Configure environment variables
 
-Copy the example environment file and add your Firebase credentials:
+### 3️⃣ Environment Variables
 
-\`\`\`bash
+```bash
 cp .env.example .env.local
-\`\`\`
+```
 
-Edit `.env.local` with your Firebase project details.
+Populate `.env.local` with your Firebase credentials.
 
-### 4. Run Development Server
+### 4️⃣ Development Server
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
-Visit `http://localhost:5173`
+Open:
+👉 `http://localhost:5173`
 
-### 5. Build for Production
+### 5️⃣ Production Build
 
-\`\`\`bash
+```bash
 npm run build
 npm run preview
-\`\`\`
+```
 
-## 🔑 Usage
+---
 
-### For End Users
+## 🔐 Usage Guide
 
-1. **Login**: Sign up or sign in with email and password
-2. **Browse News**: The app opens to a news feed (static headlines)
-3. **Unlock Chat**: Type the secret keyword into the search bar
-4. **Chat**: Send messages in real-time with other allowed users
-5. **Security**: Chat auto-locks when you switch apps or wait 60 seconds
+### End User Flow
 
-### Default Secret Keyword
+1. **Authenticate** using email/password
+2. **Browse News Feed** (default landing screen)
+3. **Enter Secret Keyword** in search bar
+4. **Chat Interface Unlocks**
+5. **Chat Auto-Locks** on inactivity or context change
 
-\`\`\`
+---
+
+## 🔑 Default Secret Keyword
+
+```
 quantum2026
-\`\`\`
+```
 
-*(Can be changed in `.env.local`)*
+> Configurable via environment variables
 
-### Hiding Messages
+```env
+VITE_SECRET_KEYWORD=your_custom_keyword
+```
 
-- **Long-press** (mobile) or **right-click** (desktop) on any message
-- Select "Hide for me"
-- Message disappears only for you (others still see it)
+---
 
-## 🔐 Security Features
+## 🗑️ Message Visibility Control
 
-### Auto-Lock Mechanism
+* Long-press (mobile) or right-click (desktop) on a message
+* Select **“Hide for me”**
+* Message is removed only from your local view
 
-The chat automatically returns to the news feed when:
+---
 
-1. **App Goes to Background**: Switching apps or minimizing browser
-2. **Tab Loses Focus**: Switching to another browser tab
-3. **Inactivity**: No interaction for 60 seconds
-4. **Back Button**: Pressing back from chat screen
+## 🛡️ Security & Access Control
 
-### Access Control
+### Behavioral Lock Conditions
 
-- Only authenticated users can access the app
-- Optional: Maintain an allowed UID list in Firestore (`/config/allowedUsers`)
-- Firestore security rules enforce read/write permissions
+The app **forcibly exits chat mode** when:
 
-### Privacy Considerations
+* Browser tab loses focus
+* App is minimized or backgrounded
+* User remains inactive for 60 seconds
+* Back navigation is triggered
 
-⚠️ **Important Disclaimers**:
+### Access Rules
 
-- This is a **demonstration/educational project**
-- Not suitable for actual sensitive communications
-- Messages are stored in Firebase Firestore (not end-to-end encrypted)
-- Firebase project admins can access all data
-- Use responsibly and within legal boundaries
+* Authentication required for all app access
+* Optional UID allowlist via Firestore (`/config/allowedUsers`)
+* Firestore rules enforce read/write restrictions
 
-## 📁 Project Structure
+---
 
-\`\`\`
+## ⚠️ Privacy & Limitations
+
+> **Important Notice**
+
+* This project is **not end-to-end encrypted**
+* Messages are stored in Firebase Firestore
+* Firebase admins retain full database access
+* Intended strictly for:
+
+  * Educational use
+  * Technical demonstration
+  * Portfolio review
+
+**Not suitable for sensitive or private communications.**
+
+---
+
+## 🗂️ Project Structure
+
+```
 secret-news-chat/
 ├── public/
-│   ├── icons/              # PWA app icons
-│   ├── manifest.json       # PWA manifest
-│   └── sw.js              # Service worker
+│   ├── icons/               # PWA icons
+│   ├── manifest.json        # App manifest
+│   └── sw.js                # Service worker
 ├── src/
 │   ├── components/
-│   │   ├── Auth/          # Login/signup components
-│   │   ├── Chat/          # Chat room and message components
-│   │   ├── Layout/        # App layout with auto-lock
-│   │   └── NewsFeed/      # News feed and search bar
+│   │   ├── Auth/
+│   │   ├── Chat/
+│   │   ├── Layout/
+│   │   └── NewsFeed/
 │   ├── config/
-│   │   └── firebase.ts    # Firebase configuration
+│   │   └── firebase.ts
 │   ├── contexts/
-│   │   └── AuthContext.tsx # Authentication context
+│   │   └── AuthContext.tsx
 │   ├── data/
-│   │   └── news.json      # Static news data
+│   │   └── news.json
 │   ├── hooks/
 │   │   ├── useInactivityTimer.ts
 │   │   └── useVisibilityChange.ts
 │   ├── services/
 │   │   ├── auth.service.ts
 │   │   └── chat.service.ts
-│   ├── types/
-│   │   └── index.ts       # TypeScript types
 │   ├── utils/
-│   │   ├── date.ts        # Date formatting
-│   │   └── pwa.ts         # PWA utilities
-│   ├── App.tsx            # Main app with routing
-│   ├── main.tsx           # Entry point
-│   └── index.css          # Global styles
-├── .env.example           # Environment variables template
-├── firestore.rules        # Firestore security rules
-├── SETUP.md              # Detailed setup instructions
-└── README.md             # This file
-\`\`\`
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── firestore.rules
+├── SETUP.md
+└── README.md
+```
 
-## 🧪 Testing
+---
 
-### Manual Testing Checklist
+## 🧪 Testing Checklist
 
-- [ ] Authentication (signup, login, logout)
-- [ ] News feed displays correctly
-- [ ] Search with normal keywords shows results
-- [ ] Secret keyword unlocks chat (no visual hints)
-- [ ] Real-time message updates
-- [ ] Message hiding works correctly
-- [ ] Auto-lock on background (60s timeout)
-- [ ] Auto-lock on tab blur/visibility change
-- [ ] Back button returns to news feed
-- [ ] PWA install to home screen
-- [ ] Offline functionality (cached news)
+* Authentication flow
+* News feed rendering
+* Normal vs secret search behavior
+* Real-time chat updates
+* Message hiding logic
+* Auto-lock (inactivity, blur, background)
+* Back navigation handling
+* PWA installation
+* Offline news availability
 
-## 🔧 Customization
+---
 
-### Change Secret Keyword
+## 🎨 Customization
 
-Edit `.env.local`:
+### Branding
 
-\`\`\`env
-VITE_SECRET_KEYWORD=your_custom_keyword
-\`\`\`
+* `public/manifest.json`
+* `index.html` (title/meta)
+* Replace icons in `public/icons/`
 
-### Change App Name/Branding
+### Inactivity Timeout
 
-1. Edit `public/manifest.json`
-2. Edit `index.html` (title and meta tags)
-3. Replace icons in `public/icons/`
-
-### Adjust Inactivity Timeout
-
-Edit `src/components/Layout/AppLayout.tsx`:
-
-\`\`\`typescript
+```ts
 useInactivityTimer({
-  timeout: 60000, // Change this (milliseconds)
+  timeout: 60000, // milliseconds
   onInactive: handleInactive,
 });
-\`\`\`
+```
+
+---
 
 ## 📄 License
 
-This project is provided as-is for educational and demonstration purposes.
+Provided **as-is** for educational and demonstration purposes.
 
-## ⚠️ Legal Disclaimer
+---
 
-This application is intended for:
-- Educational purposes
-- Technical demonstration
-- Portfolio projects
-- Academic review
+## ⚖️ Legal Disclaimer
 
-**NOT intended for**:
-- Illegal activities
-- Circumventing organizational policies
-- Actual sensitive communications requiring encryption
+This application is **not intended** for:
 
-Users are responsible for complying with local laws and regulations.
+* Illegal activities
+* Policy circumvention
+* Secure or private communication
 
-## 🤝 Contributing
+Users are solely responsible for compliance with applicable laws.
 
-This is a standalone educational project. Feel free to fork and modify for your own learning purposes.
+---
 
-## 📞 Support
+## 🤝 Contribution
 
-For setup issues, refer to [`SETUP.md`](./SETUP.md) for detailed instructions.
+This is a standalone learning project.
+Fork, modify, and experiment freely.
 
 ---
 
 **Built with React, TypeScript, Firebase, and Tailwind CSS**
+
+---
+

@@ -56,15 +56,15 @@ const NewsFeed: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-900">
             {/* Header */}
-            <header className="bg-white shadow-sm sticky top-0 z-10">
+            <header className="bg-gray-800 shadow-sm sticky top-0 z-10 border-b border-gray-700">
                 <div className="max-w-7xl mx-auto px-4 py-4">
                     <div className="flex items-center justify-between mb-4">
-                        <h1 className="text-2xl font-bold text-gray-800">News Today</h1>
+                        <h1 className="text-2xl font-bold text-white">News Today</h1>
                         <button
                             onClick={handleLogout}
-                            className="text-sm text-gray-600 hover:text-gray-800 transition"
+                            className="text-sm text-gray-400 hover:text-white transition"
                         >
                             Sign Out
                         </button>
