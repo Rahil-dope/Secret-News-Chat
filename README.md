@@ -9,7 +9,6 @@ A stealth **Progressive Web App (PWA)** that functions as a legitimate news read
 **Secret News Chat** is a disguise-first communication application.
 On the surface, it behaves like a standard news aggregation app. Under the hood, it contains a private real-time chat that can only be accessed by entering a predefined secret keyword into the search bar.
 
-<<<<<<< HEAD
 - ✅ **Disguised Interface**: Appears as "News Today" - a legitimate news reading app
 - 🔐 **Secret Unlock**: Hidden chat accessible only via keyword search (no visible buttons or hints)
 - 💬 **Real-time Chat**: Firebase Firestore-powered instant messaging
@@ -24,8 +23,6 @@ On the surface, it behaves like a standard news aggregation app. Under the hood,
 - 🎨 **Clean UI**: Mobile-first, responsive design
 =======
 There are **no visible indicators**, buttons, or navigation paths revealing the chat feature—access relies entirely on prior knowledge.
->>>>>>> dd9d16d390d465c8f91df60343c8196ce9c2c6a5
-
 This project is designed as a **technical demonstration of UI deception, state control, and access gating**, not as a secure messaging platform.
 
 ---
